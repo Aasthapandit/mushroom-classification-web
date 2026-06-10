@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 app = Flask(__name__)
 
 # -----------------------------
-# Load model and encoders
+# LOAD MODEL + PREPROCESSORS
 # -----------------------------
 model = load_model("mushroom_pca_model.h5")
 
@@ -20,56 +20,86 @@ with open("ohe.pkl", "rb") as f:
 with open("label_encoder.pkl", "rb") as f:
     le = pickle.load(f)
 
-
+# -----------------------------
+# HOME PAGE
+# -----------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
+# -----------------------------
+# PREDICTION ROUTE
+# -----------------------------
 @app.route("/predict", methods=["POST"])
 def predict():
-    try:
-        features = [
-            request.form.get("cap_shape"),
-            request.form.get("cap_surface"),
-            request.form.get("cap_color"),
-            request.form.get("bruises"),
-            request.form.get("odor"),
-            request.form.get("gill_attachment"),
-            request.form.get("gill_spacing"),
-            request.form.get("gill_size"),
-            request.form.get("gill_color"),
-            request.form.get("stalk_shape"),
-            request.form.get("stalk_root"),
-            request.form.get("stalk_surface_above_ring"),
-            request.form.get("stalk_surface_below_ring"),
-            request.form.get("stalk_color_above_ring"),
-            request.form.get("stalk_color_below_ring"),
-            request.form.get("veil_type"),
-            request.form.get("veil_color"),
-            request.form.get("ring_number"),
-            request.form.get("ring_type"),
-            request.form.get("spore_print_color"),
-            request.form.get("population"),
-            request.form.get("habitat")
-        ]
 
-        input_df = pd.DataFrame([features])
+    features = [
+        request.form["cap_shape"],
+        request.form["cap_surface"],
+        request.form["cap_color"],
+        request.form["bruises"],
+        request.form["odor"],
+        request.form["gill_attachment"],
+        request.form["gill_spacing"],
+        request.form["gill_size"],
+        request.form["gill_color"],
+        request.form["stalk_shape"],
+        request.form["stalk_root"],
+        request.form["stalk_surface_above_ring"],
+        request.form["stalk_surface_below_ring"],
+        request.form["stalk_color_above_ring"],
+        request.form["stalk_color_below_ring"],
+        request.form["veil_type"],
+        request.form["veil_color"],
+        request.form["ring_number"],
+        request.form["ring_type"],
+        request.form["spore_print_color"],
+        request.form["population"],
+        request.form["habitat"]
+    ]
 
-        encoded = ohe.transform(input_df)
-        transformed = pca.transform(encoded)
+    columns = [
+        'cap-shape','cap-surface','cap-color','bruises','odor',
+        'gill-attachment','gill-spacing','gill-size','gill-color',
+        'stalk-shape','stalk-root','stalk-surface-above-ring',
+        'stalk-surface-below-ring','stalk-color-above-ring',
+        'stalk-color-below-ring','veil-type','veil-color',
+        'ring-number','ring-type','spore-print-color',
+        'population','habitat'
+    ]
 
-        prediction = model.predict(transformed)
-        probability = float(prediction[0][0])
+    # DataFrame
+    input_df = pd.DataFrame([features], columns=columns)
 
-        result = "☠️ Poisonous Mushroom" if probability >= 0.5 else "🍄 Edible Mushroom"
+    # Encoding
+    encoded = ohe.transform(input_df)
 
-        return render_template("index.html",
-                               prediction=result,
-                               probability=round(probability, 4))
+    # PCA transform
+    transformed = pca.transform(encoded)
 
-    except Exception as e:
-        return f"Error: {str(e)}"
+    # Convert to numpy
+    transformed = np.asarray(transformed, dtype=np.float32)
 
+    # Prediction
+    prediction = model.predict(transformed)
+
+    # Probability in %
+    probability = float(prediction[0][0]) * 100
+
+    # Result logic
+    if probability >= 50:
+        result = "☠️ Poisonous Mushroom"
+    else:
+        result = "🍄 Edible Mushroom"
+
+    return render_template(
+        "index.html",
+        prediction=result,
+        probability=f"{probability:.2f}%"
+    )
+
+# -----------------------------
+# RUN APP
+# -----------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(debug=True)
