@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mushroom Classifier</title>
+
     <style>
         body {
             font-family: Arial;
@@ -42,6 +43,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 16px;
         }
 
         .result {
@@ -55,103 +57,224 @@
 <body>
 
 <div class="container">
+
     <h1>🍄 Mushroom Classifier</h1>
 
     <form action="/predict" method="POST">
 
         <div class="grid">
 
-            <select name="cap_shape">
-                <option value="x">Cap Shape</option>
+            <!-- Cap Shape -->
+            <select name="cap_shape" required>
+                <option value="x">Convex</option>
+                <option value="b">Bell</option>
+                <option value="c">Conical</option>
+                <option value="f">Flat</option>
+                <option value="k">Knobbed</option>
+                <option value="s">Sunken</option>
             </select>
 
-            <select name="cap_surface">
-                <option value="s">Cap Surface</option>
+            <!-- Cap Surface -->
+            <select name="cap_surface" required>
+                <option value="f">Fibrous</option>
+                <option value="g">Grooves</option>
+                <option value="y">Scaly</option>
+                <option value="s">Smooth</option>
             </select>
 
-            <select name="cap_color">
-                <option value="n">Cap Color</option>
+            <!-- Cap Color -->
+            <select name="cap_color" required>
+                <option value="n">Brown</option>
+                <option value="b">Buff</option>
+                <option value="c">Cinnamon</option>
+                <option value="g">Gray</option>
+                <option value="r">Green</option>
+                <option value="p">Pink</option>
+                <option value="u">Purple</option>
+                <option value="e">Red</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="bruises">
+            <!-- Bruises -->
+            <select name="bruises" required>
                 <option value="t">Bruises</option>
+                <option value="f">No Bruises</option>
             </select>
 
-            <select name="odor">
-                <option value="n">Odor</option>
+            <!-- Odor -->
+            <select name="odor" required>
+                <option value="n">None</option>
+                <option value="a">Almond</option>
+                <option value="l">Anise</option>
+                <option value="c">Creosote</option>
+                <option value="y">Fishy</option>
+                <option value="f">Foul</option>
+                <option value="m">Musty</option>
+                <option value="p">Pungent</option>
+                <option value="s">Spicy</option>
             </select>
 
-            <select name="gill_attachment">
-                <option value="f">Gill Attachment</option>
+            <!-- Gill Attachment -->
+            <select name="gill_attachment" required>
+                <option value="a">Attached</option>
+                <option value="f">Free</option>
             </select>
 
-            <select name="gill_spacing">
-                <option value="c">Gill Spacing</option>
+            <!-- Gill Spacing -->
+            <select name="gill_spacing" required>
+                <option value="c">Close</option>
+                <option value="w">Crowded</option>
             </select>
 
-            <select name="gill_size">
-                <option value="b">Gill Size</option>
+            <!-- Gill Size -->
+            <select name="gill_size" required>
+                <option value="b">Broad</option>
+                <option value="n">Narrow</option>
             </select>
 
-            <select name="gill_color">
-                <option value="k">Gill Color</option>
+            <!-- Gill Color -->
+            <select name="gill_color" required>
+                <option value="k">Black</option>
+                <option value="n">Brown</option>
+                <option value="b">Buff</option>
+                <option value="h">Chocolate</option>
+                <option value="g">Gray</option>
+                <option value="r">Green</option>
+                <option value="o">Orange</option>
+                <option value="p">Pink</option>
+                <option value="u">Purple</option>
+                <option value="e">Red</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="stalk_shape">
-                <option value="e">Stalk Shape</option>
+            <!-- Stalk Shape -->
+            <select name="stalk_shape" required>
+                <option value="e">Enlarging</option>
+                <option value="t">Tapering</option>
             </select>
 
-            <select name="stalk_root">
-                <option value="b">Stalk Root</option>
+            <!-- Stalk Root -->
+            <select name="stalk_root" required>
+                <option value="b">Bulbous</option>
+                <option value="c">Club</option>
+                <option value="u">Cup</option>
+                <option value="e">Equal</option>
+                <option value="z">Rhizomorphs</option>
+                <option value="r">Rooted</option>
+                <option value="?">Missing</option>
             </select>
 
-            <select name="stalk_surface_above_ring">
-                <option value="s">Stalk Surface Above Ring</option>
+            <!-- Stalk Surface Above Ring -->
+            <select name="stalk_surface_above_ring" required>
+                <option value="f">Fibrous</option>
+                <option value="y">Scaly</option>
+                <option value="k">Silky</option>
+                <option value="s">Smooth</option>
             </select>
 
-            <select name="stalk_surface_below_ring">
-                <option value="s">Stalk Surface Below Ring</option>
+            <!-- Stalk Surface Below Ring -->
+            <select name="stalk_surface_below_ring" required>
+                <option value="f">Fibrous</option>
+                <option value="y">Scaly</option>
+                <option value="k">Silky</option>
+                <option value="s">Smooth</option>
             </select>
 
-            <select name="stalk_color_above_ring">
-                <option value="w">Stalk Color Above Ring</option>
+            <!-- Stalk Color Above Ring -->
+            <select name="stalk_color_above_ring" required>
+                <option value="n">Brown</option>
+                <option value="b">Buff</option>
+                <option value="c">Cinnamon</option>
+                <option value="g">Gray</option>
+                <option value="o">Orange</option>
+                <option value="p">Pink</option>
+                <option value="e">Red</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="stalk_color_below_ring">
-                <option value="w">Stalk Color Below Ring</option>
+            <!-- Stalk Color Below Ring -->
+            <select name="stalk_color_below_ring" required>
+                <option value="n">Brown</option>
+                <option value="b">Buff</option>
+                <option value="c">Cinnamon</option>
+                <option value="g">Gray</option>
+                <option value="o">Orange</option>
+                <option value="p">Pink</option>
+                <option value="e">Red</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="veil_type">
-                <option value="p">Veil Type</option>
+            <!-- Veil Type -->
+            <select name="veil_type" required>
+                <option value="p">Partial</option>
             </select>
 
-            <select name="veil_color">
-                <option value="w">Veil Color</option>
+            <!-- Veil Color -->
+            <select name="veil_color" required>
+                <option value="n">Brown</option>
+                <option value="o">Orange</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="ring_number">
-                <option value="o">Ring Number</option>
+            <!-- Ring Number -->
+            <select name="ring_number" required>
+                <option value="n">None</option>
+                <option value="o">One</option>
+                <option value="t">Two</option>
             </select>
 
-            <select name="ring_type">
-                <option value="p">Ring Type</option>
+            <!-- Ring Type -->
+            <select name="ring_type" required>
+                <option value="e">Evanescent</option>
+                <option value="f">Flaring</option>
+                <option value="l">Large</option>
+                <option value="n">None</option>
+                <option value="p">Pendant</option>
             </select>
 
-            <select name="spore_print_color">
-                <option value="k">Spore Print Color</option>
+            <!-- Spore Print Color -->
+            <select name="spore_print_color" required>
+                <option value="k">Black</option>
+                <option value="n">Brown</option>
+                <option value="b">Buff</option>
+                <option value="h">Chocolate</option>
+                <option value="r">Green</option>
+                <option value="o">Orange</option>
+                <option value="u">Purple</option>
+                <option value="w">White</option>
+                <option value="y">Yellow</option>
             </select>
 
-            <select name="population">
-                <option value="v">Population</option>
+            <!-- Population -->
+            <select name="population" required>
+                <option value="a">Abundant</option>
+                <option value="c">Clustered</option>
+                <option value="n">Numerous</option>
+                <option value="s">Scattered</option>
+                <option value="v">Several</option>
+                <option value="y">Solitary</option>
             </select>
 
-            <select name="habitat">
-                <option value="d">Habitat</option>
+            <!-- Habitat -->
+            <select name="habitat" required>
+                <option value="g">Grasses</option>
+                <option value="l">Leaves</option>
+                <option value="m">Meadows</option>
+                <option value="p">Paths</option>
+                <option value="u">Urban</option>
+                <option value="w">Waste</option>
+                <option value="d">Woods</option>
             </select>
 
         </div>
 
         <button type="submit">Predict</button>
+
     </form>
 
     {% if prediction %}
