@@ -1,1 +1,167 @@
-<h1>Mushroom Classifier</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mushroom Classifier</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: green;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🍄 Mushroom Classifier</h1>
+
+    <form action="/predict" method="POST">
+
+        <div class="grid">
+
+            <select name="cap_shape">
+                <option value="x">Cap Shape</option>
+            </select>
+
+            <select name="cap_surface">
+                <option value="s">Cap Surface</option>
+            </select>
+
+            <select name="cap_color">
+                <option value="n">Cap Color</option>
+            </select>
+
+            <select name="bruises">
+                <option value="t">Bruises</option>
+            </select>
+
+            <select name="odor">
+                <option value="n">Odor</option>
+            </select>
+
+            <select name="gill_attachment">
+                <option value="f">Gill Attachment</option>
+            </select>
+
+            <select name="gill_spacing">
+                <option value="c">Gill Spacing</option>
+            </select>
+
+            <select name="gill_size">
+                <option value="b">Gill Size</option>
+            </select>
+
+            <select name="gill_color">
+                <option value="k">Gill Color</option>
+            </select>
+
+            <select name="stalk_shape">
+                <option value="e">Stalk Shape</option>
+            </select>
+
+            <select name="stalk_root">
+                <option value="b">Stalk Root</option>
+            </select>
+
+            <select name="stalk_surface_above_ring">
+                <option value="s">Stalk Surface Above Ring</option>
+            </select>
+
+            <select name="stalk_surface_below_ring">
+                <option value="s">Stalk Surface Below Ring</option>
+            </select>
+
+            <select name="stalk_color_above_ring">
+                <option value="w">Stalk Color Above Ring</option>
+            </select>
+
+            <select name="stalk_color_below_ring">
+                <option value="w">Stalk Color Below Ring</option>
+            </select>
+
+            <select name="veil_type">
+                <option value="p">Veil Type</option>
+            </select>
+
+            <select name="veil_color">
+                <option value="w">Veil Color</option>
+            </select>
+
+            <select name="ring_number">
+                <option value="o">Ring Number</option>
+            </select>
+
+            <select name="ring_type">
+                <option value="p">Ring Type</option>
+            </select>
+
+            <select name="spore_print_color">
+                <option value="k">Spore Print Color</option>
+            </select>
+
+            <select name="population">
+                <option value="v">Population</option>
+            </select>
+
+            <select name="habitat">
+                <option value="d">Habitat</option>
+            </select>
+
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h2>{{ prediction }}</h2>
+        <p>Probability: {{ probability }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
