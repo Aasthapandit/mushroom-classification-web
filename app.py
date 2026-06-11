@@ -72,10 +72,10 @@ def predict():
 
         input_df = pd.DataFrame([features], columns=columns)
 
-        encoded = ohe.transform(input_df)
+        encoded = ohe.transform(input_df).toarray()
         transformed = pca.transform(encoded)
         transformed = np.asarray(transformed, dtype=np.float32)
-
+        
         prediction = model.predict(transformed)
 
         probability = float(prediction[0][0]) * 100
