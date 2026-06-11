@@ -1,30 +1,24 @@
 from flask import Flask, render_template, request
-import pandas as pd
-import pickle
-import numpy as np
-from tensorflow.keras.models import load_model
 
-# ✅ FIRST CREATE APP
-app = Flask(__name__)
+app = Flask(**name**)
 
-# THEN LOAD MODEL
-model = load_model("mushroom_pca_model.h5")
+# Home Page
 
-with open("pca_model.pkl", "rb") as f:
-    pca = pickle.load(f)
+@app.route("/")
+def home():
+return render_template("index.html")
 
-with open("ohe.pkl", "rb") as f:
-    ohe = pickle.load(f)
+# Test Predict Route
 
-with open("label_encoder.pkl", "rb") as f:
-    le = pickle.load(f)
-
-
-#@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def predict():
-    return "Predict route reached"
-# -----------------------------
-# RUN APP
-# -----------------------------
-if __name__ == "__main__":
-    app.run(debug=True)
+return render_template(
+"index.html",
+prediction="✅ Predict Route Working",
+probability="100%"
+)
+
+# Run App
+
+if **name** == "**main**":
+app.run(debug=True)
