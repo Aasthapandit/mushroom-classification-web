@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-app = Flask(**name**)
+app = Flask(name)
 
 @app.route("/")
 def home():
@@ -14,5 +14,5 @@ prediction="✅ Predict Route Working",
 probability="100%"
 )
 
-if **name** == "**main**":
+if name** == "main":
 app.run(debug=True)
