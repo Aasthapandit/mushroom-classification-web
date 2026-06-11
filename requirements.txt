@@ -1,6 +1,6 @@
 Flask
-numpy
-pandas
-scikit-learn
-tensorflow==2.15.0
 gunicorn
+numpy==1.26.4
+pandas==2.0.3
+scikit-learn==1.2.2
+tensorflow==2.15.0
