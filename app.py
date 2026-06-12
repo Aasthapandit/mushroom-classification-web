@@ -75,8 +75,9 @@ def predict():
         encoded = ohe.transform(input_df).toarray()
         transformed = pca.transform(encoded)
         transformed = np.asarray(transformed, dtype=np.float32)
-        
-        prediction = model.predict(transformed)
+
+       # TEMP TEST
+        prediction = [[0.95]]
 
         probability = float(prediction[0][0]) * 100
 
